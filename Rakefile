@@ -1,14 +1,14 @@
 require 'bundler'
-Bundler::GemHelper.install_tasks
+require 'bundler/setup'
+require 'bundler/gem_tasks'
 
-require 'rake'
-require "rspec/core/rake_task"
-require 'rake/rdoctask'
+require 'rdoc/task'
+require 'rspec/core/rake_task'
 
 task :default => :spec
 
 desc 'Generate documentation'
-Rake::RDocTask.new(:rdoc) do |rdoc|
+RDoc::Task.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Assets.io Rails 3.1 Helper'
   rdoc.options << '--line-numbers' << '--inline-source'
