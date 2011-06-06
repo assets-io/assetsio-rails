@@ -24,3 +24,7 @@ deliver Javascript & CSS assets included with `javascript_include_tag` and
 ## References
 
 For more information about Assets.io visit <http://www.assets.io>
+
+## License
+
+The `assetsio-rails` Gem is released under the MIT license.
