@@ -1,32 +1,34 @@
 begin
-  if ActionView::Helpers.const_defined?(:SprocketsHelper)
+  module Sprockets
+    module Helpers
+      module RailsHelper
 
-    module ::ActionView::Helpers::SprocketsHelper
-
-      def sprockets_javascript_include_tag_with_assetsio(source, options = {})
-        if Rails.env.production?
-          sprockets_javascript_include_tag_without_assetsio(AssetsIO.asset_url(sprockets_asset_paths.controller.request, asset_path(source, 'js'), 'js'), options)
-        else
-          sprockets_javascript_include_tag_without_assetsio(source, options)
+        def javascript_include_tag_with_assetsio(*sources)
+          if Rails.env.production?
+            options = sources.extract_options!
+            asset_sources = sources.map { |source| asset_path(source, 'js') }
+            javascript_include_tag_without_assetsio(AssetsIO.asset_url(asset_paths.controller.request, 'js', *asset_sources), options)
+          else
+            javascript_include_tag_without_assetsio(*sources)
+          end
         end
-      end
-      alias_method_chain :sprockets_javascript_include_tag, :assetsio
+        alias_method_chain :javascript_include_tag, :assetsio
 
-      def sprockets_stylesheet_link_tag_with_assetsio(source, options = {})
-        if Rails.env.production?
-          sprockets_stylesheet_link_tag_without_assetsio(AssetsIO.asset_url(sprockets_asset_paths.controller.request, asset_path(source, 'css'), 'css'), options)
-        else
-          sprockets_stylesheet_link_tag_without_assetsio(source, options)
+        def stylesheet_link_tag_with_assetsio(*sources)
+          if Rails.env.production?
+            options = sources.extract_options!
+            asset_sources = sources.map { |source| asset_path(source, 'css') }
+            stylesheet_link_tag_without_assetsio(AssetsIO.asset_url(asset_paths.controller.request, 'css', *asset_sources), options)
+          else
+            stylesheet_link_tag_without_assetsio(*sources)
+          end
         end
-      end
-      alias_method_chain :sprockets_stylesheet_link_tag, :assetsio
+        alias_method_chain :stylesheet_link_tag, :assetsio
 
+      end
     end
-
-  else
-    raise NameError
   end
 
-rescue NameError
-  raise "assetsio-rails initialization failed: ActionView::Helpers::SprocketsHelper is not defined!"
+rescue NameError => e
+  raise "assetsio-rails initialization failed: #{e}"
 end

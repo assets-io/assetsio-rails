@@ -1,3 +1,5 @@
+require 'assetsio'
+
 module AssetsIO
   module Rails
 
