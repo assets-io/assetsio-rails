@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.md']
   s.rdoc_options     = ['--charset=UTF-8']
 
-  s.add_dependency             'assetsio', '0.0.2'
+  s.add_dependency             'assetsio', '>=0.0.2'
   s.add_dependency             'railties', '>=3.1.0.rc4'
 
   s.add_development_dependency 'rdoc',  '>=2.4.2'
