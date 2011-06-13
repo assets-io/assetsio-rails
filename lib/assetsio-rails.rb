@@ -1,2 +1,11 @@
-require 'assetsio-rails/helpers'
-require 'assetsio-rails/railtie' if defined?(Rails)
+module AssetsIO
+  module Rails
+
+    class Railtie < ::Rails::Railtie
+      config.to_prepare do
+        require 'assetsio-rails/rails/sprockets'
+      end
+    end
+
+  end
+end
